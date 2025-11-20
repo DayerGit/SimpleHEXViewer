@@ -143,10 +143,10 @@ LRESULT WINAPI DefMainWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lpar
 			OPENFILENAMEW openFile = { 0 };
 			openFile.lStructSize = sizeof(OPENFILENAMEW);
 			openFile.hwndOwner = hwnd;
-			openFile.lpstrFilter = L"Âñå ôàéëû\0*.*\0";
+			openFile.lpstrFilter = L"Ã‚Ã±Ã¥ Ã´Ã Ã©Ã«Ã»\0*.*\0";
 			openFile.lpstrFile = path;
 			openFile.nMaxFile = MAX_PATH;
-			openFile.lpstrTitle = L"Îòêðûòü ôàéë\0";
+			openFile.lpstrTitle = L"ÃŽÃ²ÃªÃ°Ã»Ã²Ã¼ Ã´Ã Ã©Ã«\0";
 			openFile.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST;
 
 			if (GetOpenFileNameW(&openFile))
@@ -154,7 +154,7 @@ LRESULT WINAPI DefMainWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lpar
 			break;
 		}
 		case MENU_HELP_ME_PLS: {
-			MessageBoxW(hwnd, L"HEX Viewer\n\nÏðîñòîé HEX-ïðîñìîòðùèê, ñîçäàííûé Dayer äëÿ ðàáîòû íàä áîëåå êðóïíûì ïðîåêòîì :)\n\nÂåðñèÿ 1.0", L"×òî ýòî?", MB_ICONQUESTION);
+			MessageBoxW(hwnd, L"HEX Viewer\n\nÃÃ°Ã®Ã±Ã²Ã®Ã© HEX-Ã¯Ã°Ã®Ã±Ã¬Ã®Ã²Ã°Ã¹Ã¨Ãª, Ã±Ã®Ã§Ã¤Ã Ã­Ã­Ã»Ã© Dayer Ã¤Ã«Ã¿ Ã°Ã Ã¡Ã®Ã²Ã» Ã­Ã Ã¤ Ã¡Ã®Ã«Ã¥Ã¥ ÃªÃ°Ã³Ã¯Ã­Ã»Ã¬ Ã¯Ã°Ã®Ã¥ÃªÃ²Ã®Ã¬ :)\n\nÃ‚Ã¥Ã°Ã±Ã¨Ã¿ 1.0", L"Ã—Ã²Ã® Ã½Ã²Ã®?", MB_ICONQUESTION);
 			break;
 		}
 		case MENU_COPY_ASCII:
@@ -234,11 +234,8 @@ LRESULT WINAPI DefSearchWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lp
 	switch (msg) {
 	case WM_COMMAND: {
 		switch (wparam) {
-		case BUTTON_FIND_AS_HEX: {
-			wls->isHex = Button_GetCheck(lparam);
-			break;
-		}
 		case BUTTON_SEARCH: {
+			wls->isHex = Button_GetCheck(lparam);
 			int searchLen = GetWindowTextLengthA(ss->hEdit);
 			if (searchLen <= 0) break;
 
@@ -252,7 +249,7 @@ LRESULT WINAPI DefSearchWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lp
 
 			if (wls->isHex) {
 				if (searchLen % 2 != 0) {
-					MessageBoxW(hwnd, L"HEX ñòðîêà äîëæíà èìåòü ÷åòíóþ äëèíó!", L"Îøèáêà!", MB_ICONERROR);
+					MessageBoxW(hwnd, L"HEX Ã±Ã²Ã°Ã®ÃªÃ  Ã¤Ã®Ã«Ã¦Ã­Ã  Ã¨Ã¬Ã¥Ã²Ã¼ Ã·Ã¥Ã²Ã­Ã³Ã¾ Ã¤Ã«Ã¨Ã­Ã³!", L"ÃŽÃ¸Ã¨Ã¡ÃªÃ !", MB_ICONERROR);
 					free(search);
 					break;
 				}
@@ -269,7 +266,7 @@ LRESULT WINAPI DefSearchWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lp
 					long value = strtol(hexPair, &endptr, 16);
 
 					if (endptr == hexPair || *endptr != '\0') {
-						MessageBoxW(hwnd, L"Íåêîððåêòíûé HEX ôîðìàò!", L"Îøèáêà!", MB_ICONERROR);
+						MessageBoxW(hwnd, L"ÃÃ¥ÃªÃ®Ã°Ã°Ã¥ÃªÃ²Ã­Ã»Ã© HEX Ã´Ã®Ã°Ã¬Ã Ã²!", L"ÃŽÃ¸Ã¨Ã¡ÃªÃ !", MB_ICONERROR);
 						free(search);
 						free(actualSearch);
 						break;
@@ -336,7 +333,7 @@ LRESULT WINAPI DefSearchWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lp
 				ShowWindow(hwnd, SW_HIDE);
 			}
 			else {
-				MessageBoxW(hwnd, L"Âõîæäåíèå íå íàéäåíî!", L"Îøèáêà ïîèñêà!", MB_ICONERROR);
+				MessageBoxW(hwnd, L"Ã‚ÃµÃ®Ã¦Ã¤Ã¥Ã­Ã¨Ã¥ Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­Ã®!", L"ÃŽÃ¸Ã¨Ã¡ÃªÃ  Ã¯Ã®Ã¨Ã±ÃªÃ !", MB_ICONERROR);
 				ss->searchShift = 0;
 			}
 
@@ -462,4 +459,5 @@ LRESULT ListViewWindowProcW(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
 	default: break;
 	}
 	return CallWindowProcW(wls->pOldListViewProc, hwnd, msg, wparam, lparam);
+
 }
